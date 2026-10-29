@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Neurovians AI Gateway — Model Registry</title>
+    <style>
+      :root { --navy:#121c2c; --ink:#192230; --muted:#667085; --line:#e4e7ec; --paper:#fff; --bg:#f7f8fa; --orange:#e8752b; --green:#168558; --blue:#2b6de8; }
+      * { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font:14px Inter,Segoe UI,Arial,sans-serif; }
+      .shell { display:grid; grid-template-columns:242px 1fr; min-height:100vh; }
+      aside { background:var(--navy); color:#d6deea; padding:26px 16px; } .brand { color:#fff; font-size:18px; font-weight:750; padding:0 12px 30px; }
+      .brand small { display:block; color:#9aa9be; font-weight:500; font-size:12px; margin-top:5px; }
+      nav button { border:0; background:transparent; color:#c6d0df; width:100%; padding:12px; border-radius:7px; text-align:left; font:inherit; cursor:pointer; margin:3px 0; }
+      nav button:hover,nav button.active { background:#26364c; color:#fff; } .nav-title { color:#7e8da2; font-size:11px; font-weight:700; letter-spacing:.07em; margin:20px 12px 8px; text-transform:uppercase; }
+      main { max-width:1200px; width:100%; margin:0 auto; padding:34px 28px; } .top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; }
+      h1 { font-size:27px; margin:0; letter-spacing:-.025em; } h2 { font-size:17px; margin:0; } .subtitle,.policy p { color:var(--muted); line-height:1.5; }
+      .env,.badge { display:inline-block; border-radius:999px; padding:4px 8px; font-size:12px; font-weight:700; } .env,.badge.ready { color:#126a43; background:#e9f7ef; } .badge.planned { color:#8b5b00; background:#fff4dc; }
+      .view { display:none; } .view.active { display:block; } .grid { display:grid; gap:16px; } .stat-grid { grid-template-columns:repeat(4,1fr); margin-bottom:22px; }
+      .card,table { background:var(--paper); border:1px solid var(--line); border-radius:11px; } .card { padding:19px; } .stat-label { color:var(--muted); font-size:12px; } .stat-value { font-size:25px; font-weight:750; margin-top:8px; }
+      .section-title { display:flex; justify-content:space-between; align-items:center; margin:28px 0 12px; } button.primary,button.secondary { border-radius:7px; padding:10px 14px; font:inherit; font-weight:700; cursor:pointer; }
+      button.primary { color:#fff; background:var(--orange); border:1px solid var(--orange); } button.secondary { color:var(--ink); background:#fff; border:1px solid #cfd5dd; }
+      table { border-collapse:separate; border-spacing:0; width:100%; overflow:hidden; } th,td { padding:14px 15px; text-align:left; border-bottom:1px solid var(--line); } th { color:var(--muted); font-size:11px; letter-spacing:.04em; text-transform:uppercase; background:#fcfcfd; } tr:last-child td { border-bottom:0; }
+      .model-name { font-weight:700; } .model-id { color:var(--muted); font:12px ui-monospace,Consolas,monospace; margin-top:4px; } .actions { display:flex; gap:8px; } .text-btn { border:0; background:transparent; color:var(--blue); font:inherit; cursor:pointer; padding:0; }
+      .policy-grid { grid-template-columns:repeat(3,1fr); } .policy h3 { font-size:15px; margin:0 0 9px; } .policy-foot { display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:12px; }
+      .toggle { width:39px; height:22px; background:#c6ccd4; border-radius:999px; position:relative; cursor:pointer; border:0; } .toggle:after { content:""; position:absolute; background:#fff; width:16px; height:16px; border-radius:50%; top:3px; left:3px; } .toggle.on { background:var(--green); } .toggle.on:after { transform:translateX(17px); }
+      .notice { display:flex; gap:12px; padding:14px 16px; background:#fff6ef; border:1px solid #f5d4bd; border-radius:9px; color:#72401f; line-height:1.45; }
+      .model-form { display:none; margin:16px 0; } .model-form.open { display:block; } .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; } label { color:#344054; font-weight:650; font-size:12px; } input,select { display:block; width:100%; margin-top:6px; padding:10px; border:1px solid #cfd5dd; border-radius:7px; font:inherit; }
+      @media(max-width:800px) { .shell { grid-template-columns:1fr; } aside { display:none; } .stat-grid,.policy-grid { grid-template-columns:repeat(2,1fr); } main { padding:24px 16px; } th:nth-child(3),td:nth-child(3),th:nth-child(5),td:nth-child(5) { display:none; } }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside><div class="brand">Neurovians<small>AI Gateway</small></div><nav>
+        <div class="nav-title">Workspace</div><button class="active" data-view="registry">◈ &nbsp; Model registry</button><button data-view="governance">◉ &nbsp; Governance</button>
+        <div class="nav-title">Coming next</div><button data-view="future">↔ &nbsp; Comparative evaluation</button><button data-view="future">◌ &nbsp; Evaluation history</button><button data-view="future">◫ &nbsp; FinOps</button>
+      </nav></aside>
+      <main>
+        <div class="top"><div><h1 id="pageTitle">Model registry</h1><p class="subtitle" id="pageSubtitle">Approved models available to your organisation.</p></div><span class="env">DEMO WORKSPACE</span></div>
+        <section id="registry" class="view active">
+          <div class="grid stat-grid"><div class="card"><div class="stat-label">Registered models</div><div class="stat-value">3</div></div><div class="card"><div class="stat-label">Available now</div><div class="stat-value">2</div></div><div class="card"><div class="stat-label">Governed models</div><div class="stat-value">2</div></div><div class="card"><div class="stat-label">Default model</div><div class="stat-value" style="font-size:16px">Phi-3 Mini</div></div></div>
+          <div class="section-title"><h2>Registered LLMs</h2><button id="addModel" class="primary">+ Register LLM</button></div>
+          <form id="form" class="card model-form"><h2 id="formTitle">Register LLM</h2><div class="form-grid"><label>Model ID<input id="modelId" required placeholder="provider/model-name" /></label><label>Model name<input id="modelName" required placeholder="e.g. Mistral Small" /></label><label>Provider<input id="provider" required placeholder="e.g. Local / Hugging Face" /></label><label>Status<select id="modelStatus"><option value="available">Available</option><option value="disabled">Disabled</option><option value="not_configured">Not configured</option></select></label><label>Endpoint or local path<input id="endpoint" placeholder="https://... or C:\models\..." /></label></div><button class="secondary" style="margin-top:14px" id="saveModel" type="submit">Register model</button></form>
+          <table><thead><tr><th>Model</th><th>Provider</th><th>Endpoint / path</th><th>Status</th><th></th></tr></thead><tbody id="modelRows"></tbody></table>
+        </section>
+        <section id="governance" class="view">
+          <div class="notice"><strong>Governance is display-only.</strong><span>These policies will later run as request and response guardrails.</span></div>
+          <div class="section-title"><h2>Active policies</h2><button class="secondary">+ Create policy</button></div>
+          <div class="grid policy-grid"><article class="card policy"><h3>Standard model policy</h3><p>Request-size limits, token usage tracking, and evaluation trace retention.</p><div class="policy-foot"><span>2 assigned models</span><button class="toggle on"></button></div></article><article class="card policy"><h3>Nutrition evidence policy</h3><p>Requires evidence and English-only response validation for nutrition queries.</p><div class="policy-foot"><span>1 assigned model</span><button class="toggle on"></button></div></article><article class="card policy"><h3>External-provider review</h3><p>Blocks external calls until endpoint, pricing, and data policy are registered.</p><div class="policy-foot"><span>1 assigned model</span><button class="toggle"></button></div></article></div>
+          <div class="section-title"><h2>Governance snapshot</h2></div><table><thead><tr><th>Control</th><th>Current state</th><th>Applies to</th><th>Owner</th></tr></thead><tbody><tr><td>Prompt audit logging</td><td><span class="badge ready">Enabled</span></td><td>All governed models</td><td>Platform team</td></tr><tr><td>Token budget enforcement</td><td><span class="badge planned">Planned</span></td><td>All providers</td><td>FinOps</td></tr><tr><td>Response guardrails</td><td><span class="badge planned">Planned</span></td><td>Policy-bound models</td><td>Risk team</td></tr></tbody></table>
+        </section>
+        <section id="future" class="view"><div class="card"><h2>Coming next</h2><p class="subtitle">Comparative evaluation, run history, and FinOps will use this registry.</p></div></section>
+      </main>
+    </div>
+    <script>
+      const titles={registry:['Model registry','Approved models available to your organisation.'],governance:['Governance','Policies and controls applied to registered models.'],future:['Platform capabilities','This view will be connected after the backend workflow is selected.']};
+      let models=[]; let editingModelId=null;
+      document.querySelectorAll('nav button').forEach(button=>button.addEventListener('click',()=>{const view=button.dataset.view;document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));button.classList.add('active');document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(view).classList.add('active');document.getElementById('pageTitle').textContent=titles[view][0];document.getElementById('pageSubtitle').textContent=titles[view][1];}));
+      const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+      async function loadModels(){models=await (await fetch('/api/models')).json();document.getElementById('modelRows').innerHTML=models.map(model=>`<tr><td><div class="model-name">${esc(model.name)}</div><div class="model-id">${esc(model.model_id)}</div></td><td>${esc(model.provider)}</td><td>${esc(model.endpoint_or_path||'—')}</td><td><span class="badge ${model.status==='available'?'ready':'planned'}">${esc(model.status)}</span></td><td class="actions"><button class="text-btn" data-edit="${esc(model.model_id)}">Edit</button><button class="text-btn" data-delete="${esc(model.model_id)}">Delete</button></td></tr>`).join('');}
+      document.getElementById('addModel').onclick=()=>{editingModelId=null;document.getElementById('form').reset();document.getElementById('modelId').disabled=false;document.getElementById('formTitle').textContent='Register LLM';document.getElementById('saveModel').textContent='Register model';document.getElementById('form').classList.add('open');};
+      document.getElementById('modelRows').onclick=async event=>{const id=event.target.dataset.edit||event.target.dataset.delete;if(!id)return;if(event.target.dataset.delete){if(confirm(`Delete ${id}?`)){await fetch(`/api/models/${encodeURIComponent(id)}`,{method:'DELETE'});await loadModels();}return;}const model=models.find(item=>item.model_id===id);editingModelId=id;document.getElementById('modelId').value=model.model_id;document.getElementById('modelId').disabled=true;document.getElementById('modelName').value=model.name;document.getElementById('provider').value=model.provider;document.getElementById('modelStatus').value=model.status;document.getElementById('endpoint').value=model.endpoint_or_path||'';document.getElementById('formTitle').textContent='Edit LLM';document.getElementById('saveModel').textContent='Save changes';document.getElementById('form').classList.add('open');};
+      document.getElementById('form').onsubmit=async event=>{event.preventDefault();const payload={model_id:document.getElementById('modelId').value,name:document.getElementById('modelName').value,provider:document.getElementById('provider').value,status:document.getElementById('modelStatus').value,endpoint_or_path:document.getElementById('endpoint').value||null};const url=editingModelId?`/api/models/${encodeURIComponent(editingModelId)}`:'/api/models';const response=await fetch(url,{method:editingModelId?'PUT':'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});if(!response.ok){alert((await response.json()).detail||'Unable to save model.');return;}document.getElementById('form').classList.remove('open');await loadModels();};
+      document.querySelectorAll('.toggle').forEach(toggle=>toggle.onclick=()=>toggle.classList.toggle('on'));
+      loadModels();
+    </script>
+  </body>
+</html>
